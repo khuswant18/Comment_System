@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id 
+  name     String 
+  email    String?   @unique
+  photoURL String?
+  likes    Like[]
+  comments Comment[]
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  parentId  String?
+  text      String
+  authorId  String
+  timestamp DateTime  @default(now())
+  likes     Int       @default(0)
+  Likes     Like[]
+  user      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Comment[] @relation("ParentChild")
+
+  @@map("comments")
+}
+
+model Like {
+  userId    String
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, commentId])
+}
