@@ -9,7 +9,6 @@ import {
 
 const router = Router()
 
-//methods are different
 router.post('/comments', createComment)           
 router.get('/comments', getAllComments)          
 router.get('/comments/:id', getCommentById)      

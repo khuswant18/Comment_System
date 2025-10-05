@@ -24,13 +24,11 @@ export const createComment = async (req, res) => {
       update: {
         name: author,
         email: email || undefined,
-        // photoURL: photoURL || undefined, // Temporarily commented out for deployment
       },
       create: {
         id: uid,
         name: author,
         email: email || null,
-        // photoURL: photoURL || null, // Temporarily commented out for deployment
       },
     });    const newComment = await prisma.comment.create({
       data: {
@@ -44,7 +42,6 @@ export const createComment = async (req, res) => {
             id: true,
             name: true,
             email: true,
-            // photoURL: true, // Temporarily commented out for deployment
           },
         },
         children: {
@@ -54,7 +51,6 @@ export const createComment = async (req, res) => {
                 id: true,
                 name: true,
                 email: true,
-                // photoURL: true, // Temporarily commented out for deployment
               },
             },
           },
@@ -81,7 +77,6 @@ export const getAllComments = async (req, res) => {
             id: true,
             name: true,
             email: true,
-            // photoURL: true, // Temporarily commented out for deployment
           },
         },
       },

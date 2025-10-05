@@ -4,7 +4,7 @@ export const useComments = () => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [replySubmitting, setReplySubmitting] = useState(null); // Track which comment is being replied to
+  const [replySubmitting, setReplySubmitting] = useState(null); 
   const BASEURL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
   const fetchComments = useCallback(async () => {
@@ -29,9 +29,8 @@ export const useComments = () => {
 
   const createComment = async (commentData) => {
     try {
-      // Set loading state based on comment type
       if (commentData.parentId) {
-        setReplySubmitting(commentData.parentId); // Track which comment is being replied to
+        setReplySubmitting(commentData.parentId);
       } else {
         setSubmitting(true);
       }
@@ -64,7 +63,6 @@ export const useComments = () => {
       console.error("Error posting comment:", error);
       return false;
     } finally {
-      // Clear loading states
       if (commentData.parentId) {
         setReplySubmitting(null);
       } else {
